@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Stream from "./components/Stream";
+import Publisher from "./components/Publisher";
 import IdInputField from "./components/IdInputField";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       ) : (
         <p>Enter a channel ID above to connect.</p>
       )}
+      <Publisher />
     </div>
   );
 }

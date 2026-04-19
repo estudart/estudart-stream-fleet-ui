@@ -6,7 +6,7 @@ type StreamProps = {
 };
 
 export default function Stream({ channelId }: StreamProps) {
-  const wsUrl = `${WS_BASE}?channel=${encodeURIComponent(channelId)}`;
+  const wsUrl = `${WS_BASE}/consume?channel=${encodeURIComponent(channelId)}`;
   const { lastMessage } = useWebSocket(wsUrl);
 
   return (
