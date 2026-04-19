@@ -1,6 +1,5 @@
 import useWebSocket from "../hooks/useWebSocket";
-
-const WS_BASE = "ws://192.168.68.100:8000/v1/ws/consume";
+import { WS_BASE } from "../config";
 
 type StreamProps = {
   channelId: string;
