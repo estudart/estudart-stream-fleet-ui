@@ -18,13 +18,13 @@ export default function Publisher() {
   }, [lastImage, isOpen, sendMessage]);
 
   return (
-    <div>
+    <section className="page-card">
       <h2>Publishing</h2>
       {!isOpen ? (
-        <p>Connecting publisher…</p>
+        <p className="status-line">Connecting publisher…</p>
       ) : (
-        <p>Sending JPEG frames.</p>
+        <p className="status-line">Sending JPEG frames.</p>
       )}
-    </div>
+    </section>
   );
 }

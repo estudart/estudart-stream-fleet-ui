@@ -5,8 +5,8 @@ type IdInputFieldProps = {
 
 export default function IdInputField({ channelId, onChange }: IdInputFieldProps) {
   return (
-    <div>
-      <label htmlFor="channel-id"> Channel ID </label>
+    <div className="field">
+      <label htmlFor="channel-id">Channel ID</label>
       <input
         id="channel-id"
         type="text"

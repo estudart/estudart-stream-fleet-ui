@@ -1,24 +1,42 @@
-import { useState } from "react";
-import "./App.css";
-import Stream from "./components/Stream";
+import { NavLink, Route, Routes } from "react-router-dom";
+import Streamer from "./components/Streamer";
 import Publisher from "./components/Publisher";
-import IdInputField from "./components/IdInputField";
+import "./App.css";
 
-function App() {
-  const [channelId, setChannelId] = useState<string>("");
-
+export default function App() {
   return (
-    <div>
-      <h1>StreamFleet</h1>
-      <IdInputField channelId={channelId} onChange={setChannelId} />
-      {channelId.trim() ? (
-        <Stream channelId={channelId.trim()} />
-      ) : (
-        <p>Enter a channel ID above to connect.</p>
-      )}
-      <Publisher />
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="brand">
+          <span className="brand-mark" aria-hidden />
+          <span className="brand-name">StreamFleet</span>
+        </div>
+        <nav className="main-nav" aria-label="Primary">
+          <NavLink
+            to="/publish"
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
+          >
+            Publish
+          </NavLink>
+          <NavLink
+            to="/stream"
+            className={({ isActive }) =>
+              isActive ? "nav-link nav-link--active" : "nav-link"
+            }
+          >
+            Watch
+          </NavLink>
+        </nav>
+      </header>
+
+      <main className="app-main">
+        <Routes>
+          <Route path="/publish" element={<Publisher />} />
+          <Route path="/stream" element={<Streamer />} />
+        </Routes>
+      </main>
     </div>
   );
 }
-
-export default App
