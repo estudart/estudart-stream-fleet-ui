@@ -2,10 +2,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 type SendPayload = Parameters<WebSocket["send"]>[0];
 
-export default function useWebSocket(url: string) {
+type Options = {
+  onMessage?: (data: string) => void;
+};
+
+export default function useWebSocket(url: string, opts?: Options) {
   const [lastMessage, setLastMessage] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
+  const optsRef = useRef(opts);
+  optsRef.current = opts;
 
   useEffect(() => {
     if (!url) {
@@ -19,7 +25,12 @@ export default function useWebSocket(url: string) {
     wsRef.current = ws;
 
     ws.onmessage = (event: MessageEvent<string>) => {
-      setLastMessage(event.data);
+      const handler = optsRef.current?.onMessage;
+      if (handler) {
+        handler(event.data);
+      } else {
+        setLastMessage(event.data);
+      }
     };
 
     ws.onopen = () => {

@@ -1,25 +1,27 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import useWebSocket from "../hooks/useWebSocket";
 import useNavigator from "../hooks/useNavigator";
 import { WS_BASE } from "../config";
 
-const PUBLISH_URL = `${WS_BASE}/publish`;
-
 export default function Publisher() {
-  const { sendMessage, isOpen } = useWebSocket(PUBLISH_URL);
-  const { lastImage } = useNavigator();
-  const lastSentRef = useRef<string | null>(null);
+  const wsUrl = `${WS_BASE}/publish`;
+
+  const { sendMessage, isOpen } = useWebSocket(wsUrl);
+  const { lastMessage: lastImage } = useNavigator();
 
   useEffect(() => {
     if (!lastImage || !isOpen) return;
-    if (lastImage === lastSentRef.current) return;
-    lastSentRef.current = lastImage;
-    sendMessage(lastImage);
+
+    try {
+      sendMessage(lastImage);
+    } catch (err) {
+      console.error("Error sending frame:", err);
+    }
   }, [lastImage, isOpen, sendMessage]);
 
   return (
     <section className="page-card">
-      <h2>Publishing</h2>
+      <h2>Publishing stream</h2>
       {!isOpen ? (
         <p className="status-line">Connecting publisher…</p>
       ) : (
