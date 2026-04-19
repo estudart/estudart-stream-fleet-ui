@@ -1,11 +1,20 @@
-import './App.css'
-import Stream from './components/Stream'
+import { useState } from "react";
+import "./App.css";
+import Stream from "./components/Stream";
+import IdInputField from "./components/IdInputField";
 
 function App() {
+  const [channelId, setChannelId] = useState("");
+
   return (
     <div>
       <h1>StreamFleet</h1>
-      <Stream />
+      <IdInputField channelId={channelId} onChange={setChannelId} />
+      {channelId.trim() ? (
+        <Stream channelId={channelId.trim()} />
+      ) : (
+        <p>Enter a channel ID above to connect.</p>
+      )}
     </div>
   );
 }
