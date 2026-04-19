@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-type SendPayload = Parameters<WebSocket["send"]>[0];
+// type SendPayload = Parameters<WebSocket["send"]>[0];
 
 export default function useWebSocket(url: string) {
   const [lastMessage, setLastMessage] = useState<string | null>(null);
@@ -33,8 +33,8 @@ export default function useWebSocket(url: string) {
 
   return {
     lastMessage,
-    sendMessage: (msg: SendPayload) => {
-      wsRef.current?.send(msg);
-    },
+    // sendMessage: (msg: SendPayload) => {
+    //   wsRef.current?.send(msg);
+    // },
   };
 }

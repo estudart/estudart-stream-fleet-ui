@@ -4,7 +4,7 @@ import Stream from "./components/Stream";
 import IdInputField from "./components/IdInputField";
 
 function App() {
-  const [channelId, setChannelId] = useState("");
+  const [channelId, setChannelId] = useState<string>("");
 
   return (
     <div>
